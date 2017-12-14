@@ -1,0 +1,14 @@
+#啦啦啦
+futurecode.secret=${random.value}
+
+futurecode.intran=${random.int}
+
+futurecode.server=www.futurecode.com
+
+futurecode.desc=${futurecode.server} is my server
+
+spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
+
+spring.jackson.time-zone=Asia/Chongqing
+
+spring.profiles.active=test 
