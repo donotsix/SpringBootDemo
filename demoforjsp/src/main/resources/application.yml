@@ -1,0 +1,32 @@
+#啦啦啦
+futurecode:
+  secret: ${random.value}
+
+  intran: ${random.int}
+
+  server: www.futurecode.com
+
+  desc: ${futurecode.server} is my server
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+    time-zone: Asia/Chongqing
+
+  freemarker:
+      cache: false
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+server:
+  port: 8099
+
+logging:
+  level: debug
+  config: classpath:logback-futurecode.xml
+  path: F:\\log
+  #file: futurecode.log
+
