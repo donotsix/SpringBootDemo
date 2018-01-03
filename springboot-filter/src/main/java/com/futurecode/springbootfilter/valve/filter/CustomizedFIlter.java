@@ -2,8 +2,10 @@ package com.futurecode.springbootfilter.valve.filter;
 
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+@WebFilter(filterName = "customizedFIlter" , urlPatterns = "/*")
 public class CustomizedFIlter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -13,6 +15,7 @@ public class CustomizedFIlter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println("======do filter======");
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
