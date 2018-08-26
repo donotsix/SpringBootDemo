@@ -1,4 +1,4 @@
-package cache.guava;
+package guava.cache;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.slf4j.Logger;

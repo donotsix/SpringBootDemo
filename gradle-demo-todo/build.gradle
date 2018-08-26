@@ -1,0 +1,134 @@
+// 此文件就是一个构建
+// 一个构建至少包含一个项目
+
+/*
+* 一个项目代表一个正在构建的组件(比如一个jar文件) , 当构建启动后 , Gradle会基于build.gradle实例化一个
+* org.gradle.api.Project类 , 并且能够通过project变量使其隐式可用
+* */
+
+// 项目最重要的几个属性和方法
+/*
+* 属性
+* group name version 三个属性既是一个组件的坐标
+*
+* 方法
+* apply() dependencies(依赖) repositorys(仓库) task(任务)
+*
+* 属性的其他配置方式
+* ext , gradle.properties
+* */
+
+// 一个项目包含一个或多个任务
+
+// 任务
+/*
+* 任务对应org.gradle.api.Task
+* 任务主要包括任务动作 任务依赖 , 任务动作定义了一个最小的工作单元(代码块)
+* 可以定义依赖于其他任务 , 动作序列 , 执行条件
+*
+* 任务里面的重要方法
+* dependsOn
+* doFirst
+* doLast 可多次执行
+* */
+
+// 构建项目指定
+project.group 'com.futurecode'
+version '1.0.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war' //官网查看都有什么插件
+
+sourceCompatibility = 1.8
+
+repositories {
+    // 按顺序使用
+    // 自己的私服
+    maven {
+        url ''
+    }
+    // 使用本地maven仓库
+    mavenLocal()
+    // 配置了一个公共仓库
+    mavenCentral()
+}
+
+dependencies {
+    // 编译阶段依赖的jar包
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+
+    // 测试代码的编译阶段依赖的jar包
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // 测试代码的运行阶段依赖的jar包
+    // testRuntime group: 'junit', name: 'junit', version: '4.12'
+}
+
+// 动作代码
+def createDir = {
+    path ->
+        File dir = new File(path)
+        if (!dir.exists()) {
+            dir.mkdir()
+        }
+}
+
+
+// 新建任务
+task makeJavaDir() {
+    def paths = ['src/main/webapp']
+
+    // 在动作列表的头部添加一个动作
+    doFirst {
+        paths.forEach(createDir)
+    }
+}
+
+task makeWebDir() {
+    // 配置阶段的代码
+    def paths = ['src/test/webapp']
+
+    //  动作阶段的代码
+    // 在动作列表的尾部添加一个动作
+    doLast {
+        paths.forEach(createDir)
+    }
+}
+
+// 构建的生命周期分为三个阶段 , 初始化 配置 执行
+/*
+*  初始化阶段就是为每个需要构建的项目根据配置代码创建一个Project对象 , 并使其隐式可用
+*
+*  配置阶段就是根据配置生成task的依赖关系和执行顺序 , 配置代码就是除了动作代码之外的代码 , 配置阶段就要决定项目
+*      的依赖关系和执行顺序
+*
+*       配置代码就是修改属性等代码
+*       动作代码就是方法调用的代码 , 比如创建文件夹 , 输出内容
+*
+*  执行阶段主要就是根据task的顺序执行动作代码
+* */
+
+
+// 关于版本冲突 , gradle默认的处理方式是在出现版本冲突的时候默认使用最高版本的jar包
+// 我们可以修改默认解决策略
+//configurations.all {
+//    resolutionStrategy{
+//        failOnVersionConflict()
+//    }
+//}
+
+// 解决版本冲突的方式 , 排除传递性依赖 , 我们可以排除一个jar包的所有传递性依赖 ,
+// 也可以排除指定的传递性依赖
+//compile ('ch.qos.logback:logback-classic:1.2.3') {
+//    // 排除指定传递性依赖jar包 , module对应name
+//    exclude group: "ch.qos.logback" , module : "logback-core"
+//
+//    // transitive 排除所有传递性依赖 , 一般不使用
+//    // transitive : false
+//}
+
+// 强制指定版本
+//configurations.all {
+//    resolutionStrategy{
+//        force 'ch.qos.logback:logback-core:1.2.3'
+//    }
+//}
