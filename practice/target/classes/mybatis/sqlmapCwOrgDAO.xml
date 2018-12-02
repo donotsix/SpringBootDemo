@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cainiao.bn.basic.data.dao.CwOrgDAO">
+
+    <resultMap id="BaseResultMap" type="com.cainiao.bn.basic.common.dataobject.CwOrgDO">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+        <result column="creator" jdbcType="VARCHAR" property="creator" />
+        <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+        <result column="org_name" jdbcType="VARCHAR" property="orgName" />
+        <result column="org_desc" jdbcType="VARCHAR" property="orgDesc" />
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        gmt_create,
+        gmt_modified,
+        creator,
+        modifier,
+        org_name,
+        org_desc,
+        is_deleted
+    </sql>
+
+    <sql id="where_Condition">
+    <where>
+        <if test="id != null">
+            and id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="gmtCreate != null">
+            and gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="gmtModified != null">
+            and gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+        </if>
+        <if test="creator != null and creator !=''">
+            and creator = #{creator,jdbcType=VARCHAR}
+        </if>
+        <if test="modifier != null and modifier !=''">
+            and modifier = #{modifier,jdbcType=VARCHAR}
+        </if>
+        <if test="orgName != null and orgName !=''">
+            and org_name = #{orgName,jdbcType=VARCHAR}
+        </if>
+        <if test="orgDesc != null and orgDesc !=''">
+            and org_desc = #{orgDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="isDeleted != null">
+            and is_deleted = #{isDeleted,jdbcType=TINYINT}
+        </if>
+    </where>
+    </sql>
+
+    <sql id="limit_Condition">
+        <if test="offset != null and isNeedPagination !=false">
+            limit #{offset},#{pageSize}
+        </if>
+    </sql>
+
+    <sql id="orderBy_Condition">
+        <if test="orderBy != null">
+            order by gmt_create
+        </if>
+    </sql>
+
+    <select id="queryPage" resultMap="BaseResultMap" parameterType="com.cainiao.bn.basic.common.query.CwOrgQuery">
+        select
+            <include refid="Base_Column_List" />
+            from cw_org
+            <include refid="where_Condition"/>
+            <include refid="orderBy_Condition"/>
+            <include refid="limit_Condition"/>
+    </select>
+
+    <select id="queryCount" resultType="java.lang.Long" parameterType="com.cainiao.bn.basic.common.query.CwOrgQuery">
+        select count(*)
+            from cw_org
+            <include refid="where_Condition"/>
+    </select>
+
+    <insert id="insert" parameterType="com.cainiao.bn.basic.common.dataobject.CwOrgDO" useGeneratedKeys="true" keyProperty="id">
+        insert into cw_org
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            gmt_create,
+            gmt_modified,
+        <if test="creator != null and creator !=''">
+            creator,
+        </if>
+        <if test="modifier != null and modifier !=''">
+            modifier,
+        </if>
+        <if test="orgName != null and orgName !=''">
+            org_name,
+        </if>
+        <if test="orgDesc != null and orgDesc !=''">
+            org_desc,
+        </if>
+        <if test="isDeleted != null">
+            is_deleted,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            now(),
+            now(),
+        <if test="creator != null and creator !=''">
+            #{creator,jdbcType=VARCHAR},
+        </if>
+        <if test="modifier != null and modifier !=''">
+            #{modifier,jdbcType=VARCHAR},
+        </if>
+        <if test="orgName != null and orgName !=''">
+            #{orgName,jdbcType=VARCHAR},
+        </if>
+        <if test="orgDesc != null and orgDesc !=''">
+            #{orgDesc,jdbcType=VARCHAR},
+        </if>
+        <if test="isDeleted != null">
+            #{isDeleted,jdbcType=TINYINT},
+        </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.cainiao.bn.basic.common.dataobject.CwOrgDO">
+        update cw_org
+        <set>
+        gmt_modified=now(),
+        <if test="creator != null">
+            creator = #{creator, jdbcType=VARCHAR},
+        </if>
+        <if test="modifier != null">
+            modifier = #{modifier, jdbcType=VARCHAR},
+        </if>
+        <if test="orgName != null">
+            org_name = #{orgName, jdbcType=VARCHAR},
+        </if>
+        <if test="orgDesc != null">
+            org_desc = #{orgDesc, jdbcType=VARCHAR},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted, jdbcType=TINYINT},
+        </if>
+        </set>
+        <where>
+            and id = #{id,jdbcType=BIGINT}
+        </where>
+
+    </update>
+
+</mapper>

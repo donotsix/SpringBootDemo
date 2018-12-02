@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: hessian:hessian:3.0.14.bugfix-tae2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/hessian/hessian/3.0.14.bugfix-tae2/hessian-3.0.14.bugfix-tae2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/hessian/hessian/3.0.14.bugfix-tae2/hessian-3.0.14.bugfix-tae2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/hessian/hessian/3.0.14.bugfix-tae2/hessian-3.0.14.bugfix-tae2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

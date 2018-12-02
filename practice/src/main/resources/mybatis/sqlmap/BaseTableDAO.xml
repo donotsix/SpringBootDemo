@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cainiao.bn.lender.data.dao.BaseTableDAO">
+    <resultMap id="BaseResultMap" type="org.com.code.util.TableBean">
+        <result column="column_name" jdbcType="VARCHAR" property="columnName" />
+        <result column="data_type" jdbcType="VARCHAR" property="columnType" />
+        <result column="column_comment" jdbcType="VARCHAR" property="columnDesc" />
+        <result column="is_nullable" jdbcType="VARCHAR" property="isNullable" />
+        <result column="column_key" jdbcType="VARCHAR" property="columnKey" />
+    </resultMap>
+    <select id="getTableBeans" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select column_name, data_type,column_comment ,is_nullable,column_key 
+        from Information_schema.columns 
+        where table_Name = #{tableName,jdbcType=VARCHAR}
+    </select>
+</mapper>

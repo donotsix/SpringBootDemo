@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.taobao.hsf.hessian:hessian:4.0.7.bugfix7">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/taobao/hsf/hessian/hessian/4.0.7.bugfix7/hessian-4.0.7.bugfix7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/com/taobao/hsf/hessian/hessian/4.0.7.bugfix7/hessian-4.0.7.bugfix7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/com/taobao/hsf/hessian/hessian/4.0.7.bugfix7/hessian-4.0.7.bugfix7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
